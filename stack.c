@@ -1,39 +1,38 @@
 #include<stdio.h>
-int stack[10];
-int top=-1;
-int isempty(){
-	if(top==-1){
+#include<stdlib.h>
+typedef struct{
+	int top;
+	int items[10];
+}stack;
+void push(stack* s, int value){
+	s->items[++s->top]=value;
+}
+int empty(stack* s){
+	if(s->top==-1){
 		return 1;
 	}
 	else{
 		return 0;
 	}
 }
-void pop(){
-	int data;
-	if(!isempty()){
-		top=top-1;
-	}
+void pop(stack* s){
+	if(!empty(s)){
+	s->top--;
 }
-void push(int value){
-	top=top+1;
-	stack[top]=value;
 }
-int Top(){
-	return stack[top];
+int Top(stack* s){
+	return s->items[s->top];
 }
-int main(){
-	push(10);
-	push(12);
-	push(23);
-	push(90);
-	printf("%d ",Top());
-	pop();
-	printf("%d ",Top());
-	pop();
-	printf("%d ",Top());
-	pop();
-	printf("%d ",Top());
-	pop();
-
+int main()
+{
+	stack *s=(stack*)(malloc(sizeof(stack)));
+	push(s,2);
+	push(s,3);
+	
+	printf("%d ",Top(s));
+	pop(s);
+	printf("%d ",Top(s));
+	pop(s);
+	
+	return 0;
 }
